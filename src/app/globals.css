@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --hf-black: #111111;
+  --hf-charcoal: #333333;
+  --hf-beige: #cdb79e;
+  --hf-ivory: #ede7df;
+  --hf-white: #ffffff;
+  --hf-rose: #e7c1d1;
+  --hf-mint: #b8d2be;
+  --hf-blue: #a7c7e0;
+  --hf-lavender: #dcc8e6;
+  --hf-coral: #f5a5a5;
+  --hf-bg: #f7f5f2;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-sans: "Pretendard";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--hf-bg);
+  color: var(--hf-black);
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hf-gradient {
+  background: linear-gradient(90deg, #111111 0%, #cdb79e 100%);
+}
+
+.hf-title {
+  font-family: var(--font-poppins), var(--font-pretendard), sans-serif;
+}
