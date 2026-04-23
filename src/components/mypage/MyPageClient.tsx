@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { designerPreferencesStore } from "@/lib/designer-preferences";
 import { Designer } from "@/lib/types";
-import { getBookmarkedDesignerIds, getViewedDesignerIds } from "@/lib/local-storage";
 import { designerDetailRoute } from "@/lib/navigation";
 
 interface MyPageClientProps {
@@ -32,11 +32,11 @@ function compactCard(designer: Designer) {
 
 export function MyPageClient({ allDesigners, defaultBookmarks, defaultViewed }: MyPageClientProps) {
   const [bookmarks] = useState(() => {
-    const local = getBookmarkedDesignerIds();
+    const local = designerPreferencesStore.getBookmarkedDesignerIds();
     return local.length ? local : defaultBookmarks;
   });
   const [viewed] = useState(() => {
-    const local = getViewedDesignerIds();
+    const local = designerPreferencesStore.getViewedDesignerIds();
     return local.length ? local : defaultViewed;
   });
 
