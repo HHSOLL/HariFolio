@@ -30,8 +30,8 @@ export function FilterSidebar({
   const activeGender = selectedGender ?? "all";
 
   return (
-    <aside className="rounded-[26px] border border-[#ddd6cb] bg-white p-5">
-      <h2 className="text-[34px] font-semibold tracking-[-0.03em] text-[#111111]">{title}</h2>
+    <aside className="sticky top-24 self-start border-r border-[#ddd6cb] bg-transparent pr-7">
+      <h2 className="text-[22px] font-semibold tracking-normal text-[#111111]">{title}</h2>
       <form action={action} className="mt-5 space-y-5">
         <label className="block space-y-2">
           <span className="text-[16px] font-semibold text-[#403930]">검색</span>
@@ -43,7 +43,7 @@ export function FilterSidebar({
           />
         </label>
 
-        <label className="block space-y-2">
+        <label className="block space-y-2 border-t border-[#eee8df] pt-5">
           <span className="text-[16px] font-semibold text-[#403930]">지역</span>
           <select name="district" defaultValue={selectedDistrict ?? ""} className="w-full rounded-2xl border border-[#d7d0c6] bg-white px-4 py-3 text-[14px]">
             <option value="">전체</option>
@@ -55,7 +55,7 @@ export function FilterSidebar({
           </select>
         </label>
 
-        <div className="space-y-3">
+        <div className="space-y-3 border-t border-[#eee8df] pt-5">
           <p className="text-[16px] font-semibold text-[#403930]">반경</p>
           <input type="range" min={1} max={10} defaultValue={3} className="w-full accent-[#111111]" />
           <div className="flex items-center justify-between text-[13px] text-[#7a7268]">
@@ -66,7 +66,7 @@ export function FilterSidebar({
           </div>
         </div>
 
-        <fieldset className="space-y-2">
+        <fieldset className="space-y-2 border-t border-[#eee8df] pt-5">
           <legend className="text-[16px] font-semibold text-[#403930]">성별</legend>
           <div className="grid grid-cols-3 gap-2">
             {[
@@ -90,7 +90,7 @@ export function FilterSidebar({
           </div>
         </fieldset>
 
-        <label className="block space-y-2">
+        <label className="block space-y-2 border-t border-[#eee8df] pt-5">
           <span className="text-[16px] font-semibold text-[#403930]">시술/스타일</span>
           <select name="style" defaultValue={selectedStyle ?? ""} className="w-full rounded-2xl border border-[#d7d0c6] bg-white px-4 py-3 text-[14px]">
             <option value="">전체</option>
@@ -110,7 +110,7 @@ export function FilterSidebar({
         </label>
 
         {includePrice ? (
-          <fieldset className="space-y-2">
+          <fieldset className="space-y-2 border-t border-[#eee8df] pt-5">
             <legend className="text-[16px] font-semibold text-[#403930]">가격대</legend>
             <div className="flex flex-wrap gap-2">
               {[

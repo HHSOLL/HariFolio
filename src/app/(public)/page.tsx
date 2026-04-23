@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Search } from "lucide-react";
 import { PageContainer } from "@/components/common/PageContainer";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { DesignerCard } from "@/components/designer/DesignerCard";
@@ -21,99 +22,129 @@ export default function HomePage() {
   const recruitments = getRecruitmentPosts().slice(0, 4);
   const popularSalons = getPopularSalons().slice(0, 4);
   const aspiringMap = new Map(getAspiringDesigners().map((item) => [item.id, item]));
+  const heroModels = recommendedDesigners.slice(0, 3);
+  const heroStyles = trendingStyles.slice(0, 4);
 
   return (
     <div>
-      <section className="border-b border-[#e5dfd5] bg-[#efede9]">
-        <PageContainer className="py-5 lg:py-7">
-          <div className="relative overflow-hidden rounded-[32px] border border-[#ddd6cb] bg-[#e8e5e0]">
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[57%]">
-              <Image
-                src="/images/heroes/hero-home-v2.png"
-                alt="Hairfolio hero"
-                fill
-                priority
-                className="object-cover object-[72%_center]"
-              />
-            </div>
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#efede9] via-[#efede9]/90 to-transparent" />
+      <section className="relative min-h-[590px] overflow-hidden border-b border-[#e5dfd5] bg-[#f4f1ec]">
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[66%]">
+          <Image
+            src="/images/heroes/hero-home-v2.png"
+            alt="Hairfolio hero"
+            fill
+            priority
+            className="object-cover object-[68%_center]"
+          />
+        </div>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/88 to-[#f4f1ec]/8" />
 
-            <div className="relative z-10 grid gap-6 p-5 lg:min-h-[560px] lg:grid-cols-[1.04fr_0.96fr] lg:p-8">
-              <article className="space-y-6 lg:max-w-[560px]">
-                <h1 className="text-[44px] leading-[1.14] font-semibold tracking-[-0.04em] text-[#111111] lg:text-[68px]">
-                  원하는 스타일,
-                  <br />
-                  해본 디자이너를
-                  <br />
-                  <span className="text-[#b4a28f]">쉽고 빠르게.</span>
-                </h1>
-                <p className="max-w-[480px] text-[16px] leading-7 text-[#60584e] lg:text-[20px] lg:leading-8">
-                  실력 있는 디자이너의 포트폴리오를 보고
-                  <br />
-                  네이버 예약으로 바로 연결해 보세요.
-                </p>
+        <PageContainer className="relative z-10 !max-w-[1840px] py-10 lg:py-12">
+          <div className="grid min-h-[520px] gap-8 lg:grid-cols-[0.98fr_1.02fr]">
+            <article className="flex max-w-[660px] flex-col justify-center">
+              <h1 className="text-[44px] leading-[1.15] font-semibold tracking-normal text-[#111111] sm:text-[56px] lg:text-[66px]">
+                원하는 스타일,
+                <br />
+                해본 디자이너를
+                <br />
+                <span className="text-[#aa967f]">쉽고 빠르게.</span>
+              </h1>
+              <p className="mt-6 max-w-[520px] text-[17px] leading-8 text-[#5d574f] lg:text-[20px]">
+                실력 있는 디자이너의 포트폴리오를 보고 네이버 예약으로 바로 연결해 보세요.
+              </p>
 
-                <form action={routes.designerSearch} className="flex flex-wrap overflow-hidden rounded-[18px] border border-[#d7d0c6] bg-white/95 shadow-[0_14px_28px_rgba(17,17,17,0.08)]">
-                  <select name="district" className="min-w-[150px] border-r border-[#ece6dd] px-4 py-3.5 text-[13px] text-[#575149]">
+              <form action={routes.designerSearch} className="mt-8 flex max-w-[720px] flex-wrap overflow-hidden rounded-[16px] border border-[#d7d0c6] bg-white shadow-[0_12px_28px_rgba(17,17,17,0.08)]">
+                <label className="min-w-[160px] flex-1 border-r border-[#ece6dd] px-5 py-3">
+                  <span className="block text-[11px] font-semibold text-[#9a9187]">지역</span>
+                  <select name="district" className="mt-1 w-full bg-transparent text-[15px] font-medium text-[#39342f] outline-none">
                     <option value="">지역 선택</option>
                     <option value="강남">강남</option>
                     <option value="역삼">역삼</option>
                     <option value="청담">청담</option>
                   </select>
-                  <select name="style" className="min-w-[165px] border-r border-[#ece6dd] px-4 py-3.5 text-[13px] text-[#575149]">
-                    <option value="">시술/스타일 선택</option>
+                </label>
+                <label className="min-w-[185px] flex-1 border-r border-[#ece6dd] px-5 py-3">
+                  <span className="block text-[11px] font-semibold text-[#9a9187]">시술/스타일</span>
+                  <select name="style" className="mt-1 w-full bg-transparent text-[15px] font-medium text-[#39342f] outline-none">
+                    <option value="">선택</option>
                     <option value="레이어드컷">레이어드컷</option>
                     <option value="허쉬컷">허쉬컷</option>
                     <option value="다운펌">다운펌</option>
                   </select>
-                  <select name="gender" className="min-w-[136px] border-r border-[#ece6dd] px-4 py-3.5 text-[13px] text-[#575149]">
-                    <option value="all">성별 선택</option>
+                </label>
+                <label className="min-w-[150px] flex-1 border-r border-[#ece6dd] px-5 py-3">
+                  <span className="block text-[11px] font-semibold text-[#9a9187]">성별</span>
+                  <select name="gender" className="mt-1 w-full bg-transparent text-[15px] font-medium text-[#39342f] outline-none">
+                    <option value="all">전체</option>
                     <option value="female">여성</option>
                     <option value="male">남성</option>
                   </select>
-                  <button type="submit" className="min-w-[76px] bg-[#111111] px-5 py-3.5 text-lg text-white">
-                    ⌕
-                  </button>
-                </form>
+                </label>
+                <button type="submit" className="inline-flex min-w-[112px] items-center justify-center gap-2 bg-[#111111] px-5 text-[15px] font-semibold text-white">
+                  <Search className="h-4 w-4" />
+                  검색
+                </button>
+              </form>
 
-                <div className="flex flex-wrap gap-2">
-                  {["레이어드컷", "다운펌", "탈색", "빌드펌", "허쉬컷"].map((tag) => (
-                    <Link
-                      key={tag}
-                      href={`${routes.designerSearch}?style=${encodeURIComponent(tag)}`}
-                      className="rounded-full border border-[#d7d0c6] bg-white/90 px-3.5 py-1.5 text-[13px] text-[#655f58]"
-                    >
-                      # {tag}
-                    </Link>
-                  ))}
-                </div>
-              </article>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {["레이어드컷", "다운펌", "탈색", "빌드펌", "허쉬컷"].map((tag) => (
+                  <Link
+                    key={tag}
+                    href={`${routes.designerSearch}?style=${encodeURIComponent(tag)}`}
+                    className="rounded-full border border-[#d7d0c6] bg-white/90 px-4 py-2 text-[14px] text-[#655f58]"
+                  >
+                    # {tag}
+                  </Link>
+                ))}
+              </div>
+            </article>
 
-              <article className="flex flex-col justify-end gap-4 lg:items-end lg:py-3">
-                <div className="w-full max-w-[330px] rounded-[26px] border border-white/50 bg-white/48 p-5 shadow-[0_18px_36px_rgba(35,27,18,0.12)] backdrop-blur-[18px]">
-                  <h3 className="text-[28px] font-semibold tracking-[-0.02em] text-[#111111]">헤어모델 모집 중</h3>
-                  <p className="mt-2 text-[13px] leading-6 text-[#5f564c]">포트폴리오를 쌓고 있는 디자이너를 만나보세요.</p>
-                  <Link href={routes.models} className="mt-4 inline-flex text-sm font-semibold text-[#111111]">
+            <article className="relative flex min-h-[420px] flex-col justify-center gap-5 lg:block">
+              <div className="grid w-full max-w-[480px] grid-cols-[1fr_190px] overflow-hidden rounded-[18px] border border-white/55 bg-white/48 shadow-[0_18px_42px_rgba(35,27,18,0.14)] backdrop-blur-[18px] lg:absolute lg:right-[110px] lg:top-[36px]">
+                <div className="p-6">
+                  <h3 className="text-[23px] font-semibold tracking-normal text-[#111111]">헤어모델 모집 중</h3>
+                  <p className="mt-4 text-[15px] leading-7 text-[#5f564c]">포트폴리오를 쌓고 있는 디자이너를 만나보세요.</p>
+                  <Link href={routes.models} className="mt-6 inline-flex text-[15px] font-semibold text-[#111111]">
                     모델 프로필 보기 ›
                   </Link>
                 </div>
+                <div className="relative min-h-[180px] bg-[#eee7df]">
+                  {heroModels.map((designer, index) => (
+                    <div
+                      key={designer.id}
+                      className="absolute bottom-0 overflow-hidden rounded-t-[999px]"
+                      style={{
+                        left: `${index * 52}px`,
+                        width: 90,
+                        height: 152 + index * 14,
+                        zIndex: heroModels.length - index,
+                      }}
+                    >
+                      <Image src={designer.profileImage} alt={designer.name} fill className="object-cover object-top" sizes="120px" />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-                <div className="w-full max-w-[330px] rounded-[26px] border border-white/50 bg-white/48 p-5 shadow-[0_18px_36px_rgba(35,27,18,0.12)] backdrop-blur-[18px]">
-                  <h3 className="text-[28px] font-semibold tracking-[-0.02em] text-[#111111]">오늘의 인기 스타일</h3>
-                  <p className="mt-2 text-[13px] leading-6 text-[#5f564c]">지금 가장 많이 찾는 스타일을 확인해 보세요.</p>
-                  <div className="mt-3 grid grid-cols-2 gap-2">
-                    {trendingStyles.slice(0, 4).map((style) => (
-                      <div key={style.rank} className="relative h-[88px] overflow-hidden rounded-xl border border-white/40">
-                        <Image src={style.image} alt={style.keyword} fill className="object-cover" sizes="200px" />
+              <div className="w-full max-w-[480px] overflow-hidden rounded-[18px] border border-white/55 bg-white/48 p-6 shadow-[0_18px_42px_rgba(35,27,18,0.14)] backdrop-blur-[18px] lg:absolute lg:bottom-[44px] lg:right-0">
+                <div className="grid grid-cols-[1fr_190px] gap-5">
+                  <div>
+                    <h3 className="text-[23px] font-semibold tracking-normal text-[#111111]">오늘의 인기 스타일</h3>
+                    <p className="mt-4 text-[15px] leading-7 text-[#5f564c]">지금 가장 많이 찾는 스타일을 확인해 보세요.</p>
+                    <Link href={routes.designerSearch} className="mt-6 inline-flex text-[15px] font-semibold text-[#111111]">
+                      더보기 ›
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {heroStyles.map((style) => (
+                      <div key={style.rank} className="relative h-[86px] overflow-hidden rounded-[10px] border border-white/50">
+                        <Image src={style.image} alt={style.keyword} fill className="object-cover" sizes="120px" />
                       </div>
                     ))}
                   </div>
-                  <Link href={routes.designerSearch} className="mt-4 inline-flex text-sm font-semibold text-[#111111]">
-                    더보기 ›
-                  </Link>
                 </div>
-              </article>
-            </div>
+              </div>
+            </article>
           </div>
         </PageContainer>
       </section>
@@ -136,7 +167,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/55" />
               <div className="absolute bottom-4 left-4 text-white">
                 <p className="text-2xl font-semibold">{String(style.rank).padStart(2, "0")}</p>
-                <p className="text-[28px] font-semibold tracking-[-0.02em]">{style.keyword}</p>
+                <p className="text-[28px] font-semibold tracking-normal">{style.keyword}</p>
               </div>
             </article>
           ))}
