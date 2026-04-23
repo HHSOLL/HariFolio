@@ -39,21 +39,34 @@ export default async function DesignerDetailPage({ params }: DesignerDetailPageP
 
       <DesignerHero designer={designer} salonHref={salon ? salonDetailRoute(salon.slug) : undefined} />
 
-      <section className="mt-10 rounded-2xl border border-[#ddd6cb] bg-white p-6">
-        <h2 className="text-[34px] font-semibold tracking-[-0.02em] text-[#111111]">시술 정보</h2>
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          <article className="rounded-xl bg-[#f7f2ea] p-4">
-            <p className="text-sm text-[#746d63]">기본 컷</p>
-            <p className="mt-1 text-[26px] font-semibold text-[#111111]">₩ {designer.priceFrom.toLocaleString()}~</p>
+      <section className="mt-6 rounded-2xl border border-[#ddd6cb] bg-white p-4 lg:p-6">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-xl border border-[#ece4d9] bg-[#faf7f2] p-4">
+            <p className="text-sm text-[#746d63]">위치</p>
+            <p className="mt-2 text-base font-medium text-[#111111]">{designer.location}</p>
           </article>
-          <article className="rounded-xl bg-[#f7f2ea] p-4">
+          <article className="rounded-xl border border-[#ece4d9] bg-[#faf7f2] p-4">
+            <p className="text-sm text-[#746d63]">경력</p>
+            <p className="mt-2 text-base font-medium text-[#111111]">{designer.yearsExperience}년차 디자이너</p>
+          </article>
+          <article className="rounded-xl border border-[#ece4d9] bg-[#faf7f2] p-4">
+            <p className="text-sm text-[#746d63]">시술 가격</p>
+            <p className="mt-2 text-base font-medium text-[#111111]">컷 {designer.priceFrom.toLocaleString()}원부터</p>
+          </article>
+          <article className="rounded-xl border border-[#ece4d9] bg-[#faf7f2] p-4">
             <p className="text-sm text-[#746d63]">예약 가능</p>
-            <p className="mt-1 text-[26px] font-semibold text-[#111111]">{designer.availableAt}</p>
+            <p className="mt-2 text-base font-medium text-[#111111]">{designer.availableAt}</p>
           </article>
-          <article className="rounded-xl bg-[#f7f2ea] p-4">
-            <p className="text-sm text-[#746d63]">소속 살롱</p>
-            <p className="mt-1 text-[26px] font-semibold text-[#111111]">{designer.salonName ?? "프리랜서"}</p>
-          </article>
+        </div>
+      </section>
+
+      <section className="mt-5 border-b border-[#e3dccf]">
+        <div className="flex flex-wrap gap-7 pb-3 text-[18px] font-medium text-[#7a7268]">
+          <span className="border-b-2 border-[#111111] pb-3 text-[#111111]">포트폴리오</span>
+          <span>시술 메뉴</span>
+          <span>리뷰 {designer.reviewCount}</span>
+          <span>스타일 설명</span>
+          <span>예약 안내</span>
         </div>
       </section>
 

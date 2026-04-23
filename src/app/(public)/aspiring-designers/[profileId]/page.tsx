@@ -98,7 +98,6 @@ export default async function AspiringProfilePage({ params }: AspiringProfilePag
             <RecruitmentCard
               key={post.id}
               post={post}
-              aspiringSlug={aspiring.slug}
               aspiringName={aspiring.name}
             />
           ))}

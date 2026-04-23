@@ -23,8 +23,8 @@ export default async function DesignerSearchPage({ searchParams }: DesignerSearc
 
   return (
     <DesignerListView
-      title="디자이너 검색 결과"
-      subtitle={queryText ? `“${queryText}” 검색 결과` : "조건에 맞는 디자이너를 찾았어요."}
+      title="디자이너 찾기"
+      subtitle={queryText ? `“${queryText}” 기준 ${designers.length.toLocaleString()}명의 디자이너가 검색되었습니다.` : `${designers.length.toLocaleString()}명의 디자이너가 검색되었습니다.`}
       designers={designers}
       totalCount={designers.length}
       basePath="/search/designers"
