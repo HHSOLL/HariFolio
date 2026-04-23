@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { addViewedDesignerId } from "@/lib/local-storage";
+import { designerPreferencesStore } from "@/lib/designer-preferences";
 
 interface ViewedDesignerTrackerProps {
   designerId: string;
@@ -9,7 +9,7 @@ interface ViewedDesignerTrackerProps {
 
 export function ViewedDesignerTracker({ designerId }: ViewedDesignerTrackerProps) {
   useEffect(() => {
-    addViewedDesignerId(designerId);
+    designerPreferencesStore.addViewedDesignerId(designerId);
   }, [designerId]);
 
   return null;

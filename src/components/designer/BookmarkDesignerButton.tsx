@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { getBookmarkedDesignerIds, toggleBookmarkedDesignerId } from "@/lib/local-storage";
+import { designerPreferencesStore } from "@/lib/designer-preferences";
 
 interface BookmarkDesignerButtonProps {
   designerId: string;
@@ -9,11 +9,13 @@ interface BookmarkDesignerButtonProps {
 
 export function BookmarkDesignerButton({ designerId }: BookmarkDesignerButtonProps) {
   const [bookmarked, setBookmarked] = useState(() =>
-    typeof window === "undefined" ? false : getBookmarkedDesignerIds().includes(designerId)
+    typeof window === "undefined"
+      ? false
+      : designerPreferencesStore.getBookmarkedDesignerIds().includes(designerId)
   );
 
   const onToggle = () => {
-    const next = toggleBookmarkedDesignerId(designerId);
+    const next = designerPreferencesStore.toggleBookmarkedDesignerId(designerId);
     setBookmarked(next.includes(designerId));
   };
 
