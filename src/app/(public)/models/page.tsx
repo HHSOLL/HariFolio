@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { RecruitmentCard } from "@/components/recruitment/RecruitmentCard";
 import { FilterSidebar } from "@/components/search/FilterSidebar";
 import { SortTabs } from "@/components/search/SortTabs";
+import { Grid2X2, List } from "lucide-react";
 import { styleKeywords } from "@/lib/mock/designers";
 import { filterRecruitmentPosts, getAspiringDesigners } from "@/lib/queries";
 import { parseRecruitmentSearch } from "@/lib/search";
@@ -35,12 +36,12 @@ export default async function ModelRecruitmentPage({ searchParams }: ModelPagePr
   const aspiringMap = new Map(getAspiringDesigners().map((item) => [item.id, item]));
 
   return (
-    <PageContainer className="py-8">
+    <PageContainer className="py-6 lg:py-7">
       <Breadcrumbs items={[{ label: "헤어모델 모집" }]} />
 
-      <div className="grid gap-6 xl:grid-cols-[330px_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[242px_minmax(0,1fr)]">
         <FilterSidebar
-          title="필터"
+          title="헤어모델 모집"
           action="/models"
           districtOptions={["강남", "역삼", "청담", "신논현"]}
           styleOptions={styleKeywords}
@@ -48,19 +49,32 @@ export default async function ModelRecruitmentPage({ searchParams }: ModelPagePr
           selectedDistrict={normalizedQuery.district}
           selectedStyle={normalizedQuery.style}
           selectedGender={normalizedQuery.gender}
+          mode="model"
         />
 
         <section>
-          <h1 className="text-[52px] font-semibold tracking-[-0.03em] text-[#111111]">헤어모델 모집</h1>
-          <p className="mt-1 text-xl text-[#686157]">현재 등록된 모집글을 조건별로 비교해 보세요.</p>
+          <h1 className="text-[18px] font-semibold tracking-[-0.03em] text-[#111111]">헤어모델 모집</h1>
+          <p className="mt-1 text-[12px] text-[#7a7268]">현재 등록된 모집글을 조건별로 비교해 보세요.</p>
 
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <SortTabs basePath="/models" currentSort={normalizedQuery.sort} query={normalizedQuery} options={sortOptions} />
-            <div className="text-sm text-[#7b7368]">{posts.length.toLocaleString()}개 모집글</div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1 rounded-xl border border-[#e2dbd1] bg-white p-1">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#fff7ef] text-[#302720]">
+                  <Grid2X2 className="h-3.5 w-3.5" />
+                </span>
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[#8d8478]">
+                  <List className="h-3.5 w-3.5" />
+                </span>
+              </div>
+              <select className="rounded-xl border border-[#e2dbd1] bg-white px-3 py-2 text-[12px] text-[#6d6459]">
+                <option>20개씩 보기</option>
+              </select>
+            </div>
           </div>
 
           {posts.length ? (
-            <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
               {posts.map((post) => {
                 const aspiring = aspiringMap.get(post.aspiringDesignerId);
                 if (!aspiring) return null;

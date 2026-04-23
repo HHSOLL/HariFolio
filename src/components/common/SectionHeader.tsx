@@ -9,13 +9,13 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ title, subtitle, href, linkLabel = "더보기" }: SectionHeaderProps) {
   return (
-    <div className="mb-4 flex items-end justify-between gap-4">
+    <div className="mb-5 flex items-end justify-between gap-4">
       <div>
-        <h2 className="text-[30px] font-semibold tracking-[-0.02em] text-[#111111]">{title}</h2>
-        {subtitle ? <p className="mt-1 text-[17px] text-[#666666]">{subtitle}</p> : null}
+        <h2 className="text-[18px] font-semibold tracking-[-0.03em] text-[#111111] lg:text-[20px]">{title}</h2>
+        {subtitle ? <p className="mt-1 text-[13px] text-[#8a8176] lg:text-[14px]">{subtitle}</p> : null}
       </div>
       {href ? (
-        <Link href={href} className="text-[15px] font-medium text-[#555555] hover:text-[#111111]">
+        <Link href={href} className="text-[13px] font-medium text-[#6f675d] hover:text-[#111111]">
           {linkLabel} ›
         </Link>
       ) : null}

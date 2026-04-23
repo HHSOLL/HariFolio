@@ -1,3 +1,4 @@
+import { Grid2X2, List } from "lucide-react";
 import { Designer } from "@/lib/types";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { EmptyState } from "@/components/common/EmptyState";
@@ -34,12 +35,12 @@ export function DesignerListView({
   query,
 }: DesignerListViewProps) {
   return (
-    <PageContainer className="py-8">
+    <PageContainer className="py-6 lg:py-7">
       <Breadcrumbs items={[{ label: "디자이너 찾기" }]} />
 
-      <div className="grid gap-6 xl:grid-cols-[330px_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[242px_minmax(0,1fr)]">
         <FilterSidebar
-          title="필터"
+          title="디자이너 찾기"
           action={basePath}
           districtOptions={["강남", "역삼", "청담", "신사", "삼성"]}
           styleOptions={styleKeywords}
@@ -49,19 +50,32 @@ export function DesignerListView({
           selectedGender={query.gender}
           includePrice
           includeAvailability
+          mode="designer"
         />
 
         <section>
-          <h1 className="text-[52px] font-semibold tracking-[-0.03em] text-[#111111]">{title}</h1>
-          <p className="mt-1 text-xl text-[#686157]">{subtitle}</p>
+          <h1 className="text-[18px] font-semibold tracking-[-0.03em] text-[#111111]">{title}</h1>
+          <p className="mt-1 text-[12px] text-[#7a7268]">{subtitle}</p>
 
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <SortTabs basePath={basePath} currentSort={query.sort} query={query} options={sortOptions} />
-            <div className="text-sm text-[#7b7368]">{totalCount.toLocaleString()}명의 디자이너</div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1 rounded-xl border border-[#e2dbd1] bg-white p-1">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#fff7ef] text-[#302720]">
+                  <Grid2X2 className="h-3.5 w-3.5" />
+                </span>
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[#8d8478]">
+                  <List className="h-3.5 w-3.5" />
+                </span>
+              </div>
+              <select className="rounded-xl border border-[#e2dbd1] bg-white px-3 py-2 text-[12px] text-[#6d6459]">
+                <option>20개씩 보기</option>
+              </select>
+            </div>
           </div>
 
           {designers.length ? (
-            <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
               {designers.map((designer) => (
                 <DesignerCard key={designer.id} designer={designer} />
               ))}

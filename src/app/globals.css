@@ -37,11 +37,42 @@ body {
   background: var(--hf-bg);
   color: var(--hf-black);
   font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  text-rendering: optimizeLegibility;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  outline: none;
+}
+
+select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8f867a 50%),
+    linear-gradient(135deg, #8f867a 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(50% - 2px),
+    calc(100% - 15px) calc(50% - 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
 }
 
 .hf-gradient {
@@ -50,4 +81,10 @@ a {
 
 .hf-title {
   font-family: var(--font-poppins), var(--font-pretendard), sans-serif;
+}
+
+.hf-surface {
+  background: #ffffff;
+  border: 1px solid #e7e1d8;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.04);
 }

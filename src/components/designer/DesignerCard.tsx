@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CalendarDays, Heart } from "lucide-react";
 import { designerDetailRoute } from "@/lib/navigation";
 import { Designer } from "@/lib/types";
 import { BookmarkDesignerButton } from "@/components/designer/BookmarkDesignerButton";
@@ -10,50 +11,60 @@ interface DesignerCardProps {
 
 export function DesignerCard({ designer }: DesignerCardProps) {
   return (
-    <article className="rounded-2xl border border-[#e3ddd4] bg-white p-4 shadow-[0_8px_24px_rgba(20,16,12,0.04)]">
-      <div className="mb-3 flex items-start justify-between gap-2">
-        <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-[#ece8e2]">
+    <article className="group rounded-[16px] border border-[#ebe4da] bg-white p-3 shadow-[0_8px_18px_rgba(17,17,17,0.02)]">
+      <div className="relative mb-3 overflow-hidden rounded-[14px] bg-[#f1ebe4]">
+        <div className="absolute left-2 top-2 z-10 inline-flex rounded-full bg-[#ead9c6] px-2 py-0.5 text-[9px] font-semibold text-[#6d5538]">
+          {designer.tags[0]}
+        </div>
+        <div className="absolute right-2 top-2 z-10">
+          <div className="rounded-full bg-white/90 p-0.5 shadow-sm">
+            <BookmarkDesignerButton designerId={designer.id} />
+          </div>
+        </div>
+        <div className="relative h-[128px] w-full">
           <Image
             src={designer.profileImage}
             alt={designer.name}
             fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 240px"
+            className="object-cover transition duration-300 group-hover:scale-[1.03]"
+            sizes="(max-width: 768px) 100vw, 176px"
           />
-          <div className="absolute bottom-2 left-2 inline-flex rounded-full bg-[#111111b3] px-2 py-1 text-xs text-white">
-            {designer.tags[0]}
-          </div>
         </div>
-        <BookmarkDesignerButton designerId={designer.id} />
+        <div className="absolute bottom-2 right-2 inline-flex rounded-full bg-[#2d2a26] px-2 py-0.5 text-[9px] font-semibold text-white">
+          {designer.tags[1] ?? "포트폴리오"}
+        </div>
+        <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/18 to-transparent" />
       </div>
 
-      <h3 className="text-[26px] font-semibold tracking-[-0.02em] text-[#111111]">{designer.name}</h3>
-      <p className="mt-1 text-sm text-[#6e665d]">
-        {designer.district} | {designer.location}
-      </p>
+      <div>
+        <h3 className="text-[15px] font-semibold tracking-[-0.03em] text-[#111111]">{designer.name}</h3>
+        <p className="mt-1 text-[10px] text-[#7a7268]">
+          {designer.district} <span className="mx-1">|</span> {designer.location}
+        </p>
+      </div>
 
-      <div className="mt-3 flex flex-wrap gap-2">
-        {designer.styles.slice(0, 3).map((style) => (
-          <span key={style} className="rounded-full bg-[#f0ebe4] px-2.5 py-1 text-xs text-[#625c55]">
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {designer.styles.slice(0, 2).map((style) => (
+          <span key={style} className="rounded-full bg-[#f3efe9] px-2 py-1 text-[10px] text-[#6d655a]">
             {style}
           </span>
         ))}
       </div>
 
-      <div className="mt-4 flex items-center justify-between text-sm text-[#5f5951]">
-        <span>♡ {designer.likes.toLocaleString()}</span>
-        <span>★ {designer.rating} ({designer.reviewCount})</span>
+      <div className="mt-3 flex items-center justify-between text-[10px] text-[#5f5951]">
+        <span className="inline-flex items-center gap-1.5">
+          <Heart className="h-3 w-3" />
+          {designer.likes >= 1000 ? `${(designer.likes / 1000).toFixed(1)}k` : designer.likes}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <CalendarDays className="h-3 w-3" />
+          {designer.availableAt}
+        </span>
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
-        <span className="text-sm text-[#5f5951]">{designer.availableAt}</span>
-        <Link
-          href={designerDetailRoute(designer.slug)}
-          className="rounded-xl border border-[#d7d1c8] bg-[#f9f6f1] px-3 py-2 text-sm font-medium text-[#111111]"
-        >
-          프로필 보기
-        </Link>
-      </div>
+      <Link href={designerDetailRoute(designer.slug)} className="sr-only">
+        {designer.name} 프로필 보기
+      </Link>
     </article>
   );
 }

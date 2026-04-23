@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { PageContainer } from "@/components/common/PageContainer";
 import { DesignerHero } from "@/components/designer/DesignerHero";
 import { PortfolioGrid } from "@/components/designer/PortfolioGrid";
-import { ReviewList } from "@/components/designer/ReviewList";
 import { ViewedDesignerTracker } from "@/components/designer/ViewedDesignerTracker";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { getDesignerBySlug, getSalonById } from "@/lib/queries";
@@ -13,6 +12,8 @@ interface DesignerDetailPageProps {
   params: Promise<{ designerId: string }>;
 }
 
+const tabLabels = ["포트폴리오", "시술 메뉴", "리뷰 532", "스타일 설명", "예약 안내"];
+
 export default async function DesignerDetailPage({ params }: DesignerDetailPageProps) {
   const { designerId } = await params;
   const designer = getDesignerBySlug(designerId);
@@ -20,62 +21,81 @@ export default async function DesignerDetailPage({ params }: DesignerDetailPageP
   if (!designer) notFound();
 
   const salon = designer.salonId ? getSalonById(designer.salonId) : undefined;
-  const grouped = designer.portfolio.reduce<Record<string, typeof designer.portfolio>>((acc, item) => {
-    const key = item.category;
-    if (!acc[key]) acc[key] = [];
-    acc[key].push(item);
-    return acc;
-  }, {});
+  const categories = ["레이어드컷", "빌드펌", "염색", "스타일링"];
+  const portfolioByCategory = categories.map((category) => ({
+    category,
+    items: designer.portfolio.filter((item) => item.category === category).slice(0, 4),
+  }));
 
   return (
-    <PageContainer className="py-8">
+    <PageContainer className="py-8 lg:py-10">
       <ViewedDesignerTracker designerId={designer.id} />
-      <Breadcrumbs
-        items={[
-          { label: "디자이너 찾기", href: "/designers" },
-          { label: designer.name },
-        ]}
-      />
+      <Breadcrumbs items={[{ label: "디자이너 찾기", href: "/designers" }, { label: designer.name }]} />
 
       <DesignerHero designer={designer} salonHref={salon ? salonDetailRoute(salon.slug) : undefined} />
 
-      <section className="mt-10 rounded-2xl border border-[#ddd6cb] bg-white p-6">
-        <h2 className="text-[34px] font-semibold tracking-[-0.02em] text-[#111111]">시술 정보</h2>
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          <article className="rounded-xl bg-[#f7f2ea] p-4">
-            <p className="text-sm text-[#746d63]">기본 컷</p>
-            <p className="mt-1 text-[26px] font-semibold text-[#111111]">₩ {designer.priceFrom.toLocaleString()}~</p>
-          </article>
-          <article className="rounded-xl bg-[#f7f2ea] p-4">
-            <p className="text-sm text-[#746d63]">예약 가능</p>
-            <p className="mt-1 text-[26px] font-semibold text-[#111111]">{designer.availableAt}</p>
-          </article>
-          <article className="rounded-xl bg-[#f7f2ea] p-4">
-            <p className="text-sm text-[#746d63]">소속 살롱</p>
-            <p className="mt-1 text-[26px] font-semibold text-[#111111]">{designer.salonName ?? "프리랜서"}</p>
-          </article>
+      <section className="mt-6 border-b border-[#ebe2d7]">
+        <div className="flex flex-wrap gap-10 px-2">
+          {tabLabels.map((tab, index) => (
+            <span
+              key={tab}
+              className={[
+                "border-b-2 pb-4 text-[16px]",
+                index === 0 ? "border-[#111111] font-semibold text-[#111111]" : "border-transparent text-[#8a8176]",
+              ].join(" ")}
+            >
+              {tab}
+            </span>
+          ))}
         </div>
       </section>
 
-      {Object.entries(grouped).map(([category, items]) => (
-        <PortfolioGrid key={category} title={category} items={items} />
-      ))}
+      <section className="mt-8 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap gap-2">
+          {["전체", "레이어드컷", "허쉬컷", "빌드펌", "매직/볼륨매직", "염색", "스타일링"].map((tag, index) => (
+            <span
+              key={tag}
+              className={[
+                "rounded-full border px-4 py-2 text-[13px]",
+                index === 0 ? "border-[#111111] bg-[#111111] text-white" : "border-[#e2dbd1] bg-white text-[#72695f]",
+              ].join(" ")}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <select className="rounded-full border border-[#e2dbd1] bg-white px-4 py-2 text-[13px] text-[#6f675d]">
+          <option>최신순</option>
+        </select>
+      </section>
 
-      <ReviewList reviews={designer.reviews} />
+      {portfolioByCategory.map(({ category, items }) =>
+        items.length ? <PortfolioGrid key={category} title={category} items={items} /> : null
+      )}
 
-      <section className="mt-10 rounded-2xl border border-[#d8d1c6] bg-[#efe9df] p-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <section className="mt-12 rounded-[24px] bg-[#f5f1eb] px-8 py-8">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h3 className="text-[34px] font-semibold tracking-[-0.02em] text-[#111111]">바로 예약 가능한 외부 플랫폼으로 이동</h3>
-            <p className="mt-1 text-[#615a50]">Hairfolio에서는 포트폴리오 탐색 후 네이버 예약으로 연결됩니다.</p>
+            <h3 className="text-[30px] font-semibold tracking-[-0.04em] text-[#111111]">
+              나에게 딱 맞는 스타일,
+              <br />
+              {designer.name.split(" ")[0]} 디자이너와 상담해보세요.
+            </h3>
+            <p className="mt-2 text-[15px] text-[#746b60]">1:1 맞춤 상담으로 최적의 스타일을 찾아드려요.</p>
           </div>
-          <Link
-            href="https://booking.naver.com"
-            target="_blank"
-            className="rounded-xl bg-[#111111] px-6 py-3 text-sm font-semibold text-white"
-          >
-            네이버 예약으로 이동
-          </Link>
+          <div className="flex gap-3">
+            <a
+              href="https://booking.naver.com"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-[14px] bg-[#111111] px-8 py-4 text-[15px] font-semibold text-white"
+            >
+              예약하기
+            </a>
+            <Link href="/auth/login" className="rounded-[14px] border border-[#cfc6bb] bg-white px-8 py-4 text-[15px] font-semibold text-[#2f2923]">
+              1:1 문의하기
+            </Link>
+          </div>
         </div>
       </section>
     </PageContainer>

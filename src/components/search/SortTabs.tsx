@@ -28,10 +28,10 @@ export function SortTabs({ basePath, currentSort, query = {}, options }: SortTab
             key={option.value}
             href={href}
             className={[
-              "rounded-full border px-4 py-2 text-sm font-medium",
+              "rounded-full border px-4 py-1.5 text-[12px] font-medium",
               active
                 ? "border-[#111111] bg-[#111111] text-white"
-                : "border-[#ddd6cc] bg-white text-[#676055] hover:border-[#111111]",
+                : "border-[#e2dbd1] bg-white text-[#6d6459] hover:border-[#111111]",
             ].join(" ")}
           >
             {option.label}
