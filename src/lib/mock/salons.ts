@@ -39,9 +39,9 @@ export const salons: Salon[] = [
     reviewCount: 1243,
     priceRange: "컷 35,000원~ / 펌 120,000원~ / 염색 100,000원~",
     tags: ["레이어드컷 맛집", "남자펌 전문", "복구매직", "클리닉"],
-    image: "/images/generated/gen-salon-01.png",
+    image: "/images/generated/gen-salon-01-v2.png",
     gallery: [
-      "/images/generated/gen-salon-01.png",
+      "/images/generated/gen-salon-01-v2.png",
       "/images/salons/salon-02.png",
       "/images/salons/salon-03.png",
       "/images/salons/salon-09.png",

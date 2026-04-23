@@ -1,23 +1,27 @@
-import Image from "next/image";
 import Link from "next/link";
 
 interface HairfolioLogoProps {
   href?: string;
   className?: string;
   priority?: boolean;
+  tone?: "dark" | "light";
 }
 
-export function HairfolioLogo({ href = "/", className = "", priority = false }: HairfolioLogoProps) {
+export function HairfolioLogo({
+  href = "/",
+  className = "",
+  tone = "dark",
+}: HairfolioLogoProps) {
   return (
-    <Link href={href} aria-label="Hairfolio 홈" className={className}>
-      <Image
-        src="/brand/hairfolio-logo.png"
-        alt="Hairfolio"
-        width={176}
-        height={58}
-        priority={priority}
-        className="h-auto w-[132px] object-contain md:w-[164px]"
-      />
+    <Link href={href} aria-label="Hairfolio 홈" className={`inline-flex items-center py-1 ${className}`}>
+      <span
+        className={[
+          "hf-title text-[34px] leading-none font-medium tracking-[-0.075em] md:text-[42px]",
+          tone === "light" ? "text-white" : "text-[#111111]",
+        ].join(" ")}
+      >
+        Hairfolio
+      </span>
     </Link>
   );
 }

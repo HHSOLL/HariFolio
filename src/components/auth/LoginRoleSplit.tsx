@@ -30,25 +30,25 @@ export function LoginRoleSplit() {
 
   return (
     <section className="overflow-hidden rounded-[28px] border border-[#ddd6cb] bg-white shadow-[0_18px_30px_rgba(20,16,12,0.06)]">
-      <div className="grid min-h-[740px] lg:grid-cols-[1fr_1fr]">
+      <div className="grid min-h-[680px] lg:grid-cols-[0.95fr_1.05fr]">
         <aside className="relative hidden lg:block">
-          <Image src="/images/generated/gen-salon-01.png" alt="Hairfolio login visual" fill className="object-cover" priority />
+          <Image src="/images/generated/gen-salon-01-v2.png" alt="Hairfolio login visual" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-black/35 to-transparent" />
           <div className="absolute bottom-10 left-8 right-8 text-white">
-            <p className="text-2xl leading-9 font-medium">디자이너와 모델을 연결하는 프리미엄 헤어 플랫폼</p>
-            <p className="mt-5 text-[58px] leading-none tracking-[-0.03em]">HairFolio</p>
+            <p className="text-[20px] leading-8 font-medium">디자이너와 모델을 연결하는 프리미엄 헤어 플랫폼</p>
+            <p className="hf-title mt-5 text-[52px] leading-none tracking-[-0.06em]">Hairfolio</p>
           </div>
         </aside>
 
-        <article className="bg-[#f6f3ee] p-6 lg:p-10">
+        <article className="bg-[#f6f3ee] p-6 lg:p-8">
           <div className="flex items-center justify-between gap-3">
-            <h1 className="text-[56px] font-semibold tracking-[-0.04em] text-[#111111]">로그인</h1>
+            <h1 className="text-[44px] font-semibold tracking-[-0.04em] text-[#111111] lg:text-[48px]">로그인</h1>
             <div className="rounded-full border border-[#d6cfc5] bg-white p-1">
               <button
                 type="button"
                 onClick={() => setRole("general")}
                 className={[
-                  "rounded-full px-3 py-1.5 text-xs font-semibold transition",
+                  "rounded-full px-3 py-1.5 text-[11px] font-semibold transition",
                   role === "general" ? "bg-[#111111] text-white" : "text-[#615a50]",
                 ].join(" ")}
               >
@@ -58,7 +58,7 @@ export function LoginRoleSplit() {
                 type="button"
                 onClick={() => setRole("designer")}
                 className={[
-                  "rounded-full px-3 py-1.5 text-xs font-semibold transition",
+                  "rounded-full px-3 py-1.5 text-[11px] font-semibold transition",
                   role === "designer" ? "bg-[#111111] text-white" : "text-[#615a50]",
                 ].join(" ")}
               >
@@ -67,7 +67,7 @@ export function LoginRoleSplit() {
             </div>
           </div>
 
-          <p className="mt-2 text-[#6c645a]">
+          <p className="mt-2 text-[15px] text-[#6c645a]">
             {role === "designer"
               ? "디자이너 전용 계정으로 로그인하여 내 페이지를 커스텀하세요."
               : "Hairfolio 계정으로 로그인하여 디자이너 탐색과 예약을 이어가세요."}
@@ -78,7 +78,7 @@ export function LoginRoleSplit() {
               type="button"
               onClick={() => setMethod("phone")}
               className={[
-                "mr-6 border-b-2 px-2 pb-3 text-lg font-semibold transition",
+                "mr-6 border-b-2 px-2 pb-3 text-[17px] font-semibold transition",
                 method === "phone" ? "border-[#111111] text-[#111111]" : "border-transparent text-[#7d756a]",
               ].join(" ")}
             >
@@ -88,7 +88,7 @@ export function LoginRoleSplit() {
               type="button"
               onClick={() => setMethod("email")}
               className={[
-                "border-b-2 px-2 pb-3 text-lg font-semibold transition",
+                "border-b-2 px-2 pb-3 text-[17px] font-semibold transition",
                 method === "email" ? "border-[#111111] text-[#111111]" : "border-transparent text-[#7d756a]",
               ].join(" ")}
             >
@@ -103,7 +103,7 @@ export function LoginRoleSplit() {
                 <select
                   value={designerSlug}
                   onChange={(event) => setDesignerSlug(event.target.value)}
-                  className="w-full rounded-2xl border border-[#d9d2c8] bg-white px-4 py-3 text-[15px] text-[#111111]"
+                  className="w-full rounded-2xl border border-[#d9d2c8] bg-white px-4 py-3 text-[14px] text-[#111111]"
                 >
                   <option value="jiyu">지유 디자이너</option>
                   <option value="minjun">민준 디자이너</option>
@@ -118,7 +118,7 @@ export function LoginRoleSplit() {
                 <input
                   name="phone"
                   placeholder="휴대폰 번호를 입력해주세요"
-                  className="w-full rounded-2xl border border-[#d9d2c8] bg-white px-4 py-3 text-[15px] text-[#111111] placeholder:text-[#a1988d]"
+                  className="w-full rounded-2xl border border-[#d9d2c8] bg-white px-4 py-3 text-[14px] text-[#111111] placeholder:text-[#a1988d]"
                 />
               </label>
             ) : (
@@ -128,7 +128,7 @@ export function LoginRoleSplit() {
                   name="email"
                   type="email"
                   placeholder="name@example.com"
-                  className="w-full rounded-2xl border border-[#d9d2c8] bg-white px-4 py-3 text-[15px] text-[#111111] placeholder:text-[#a1988d]"
+                  className="w-full rounded-2xl border border-[#d9d2c8] bg-white px-4 py-3 text-[14px] text-[#111111] placeholder:text-[#a1988d]"
                 />
               </label>
             )}
@@ -139,7 +139,7 @@ export function LoginRoleSplit() {
                 name="password"
                 type="password"
                 placeholder="비밀번호를 입력해주세요"
-                className="w-full rounded-2xl border border-[#d9d2c8] bg-white px-4 py-3 text-[15px] text-[#111111] placeholder:text-[#a1988d]"
+                className="w-full rounded-2xl border border-[#d9d2c8] bg-white px-4 py-3 text-[14px] text-[#111111] placeholder:text-[#a1988d]"
               />
             </label>
 
@@ -153,7 +153,7 @@ export function LoginRoleSplit() {
               </Link>
             </div>
 
-            <button type="submit" className="w-full rounded-2xl bg-[#111111] px-4 py-3.5 text-[22px] font-semibold text-white">
+            <button type="submit" className="w-full rounded-2xl bg-[#111111] px-4 py-3.5 text-[19px] font-semibold text-white">
               {role === "designer" ? "디자이너 로그인" : "로그인"}
             </button>
           </form>

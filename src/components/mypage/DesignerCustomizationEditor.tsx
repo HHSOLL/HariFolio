@@ -53,6 +53,8 @@ export function DesignerCustomizationEditor({
   const [themeColor, setThemeColor] = useState(initialDraft.themeColor);
   const [primaryCtaLabel, setPrimaryCtaLabel] = useState(initialDraft.primaryCtaLabel);
   const [saved, setSaved] = useState(false);
+  const previewImage =
+    currentDesigner?.slug === "jiyu" ? "/images/heroes/hero-jiyu-v2.png" : currentDesigner?.profileImage ?? "";
 
   if (!currentDesigner) {
     return <p className="text-[#665f56]">편집 가능한 디자이너 데이터가 없습니다.</p>;
@@ -176,7 +178,7 @@ export function DesignerCustomizationEditor({
       <article className="rounded-[24px] border border-[#ddd6cb] bg-white p-4">
         <div className="rounded-[20px] border border-[#e3dccf]">
           <div className="relative min-h-[280px] overflow-hidden rounded-t-[20px]" style={{ backgroundColor: `${themeColor}40` }}>
-            <Image src="/images/heroes/hero-jiyu.png" alt="디자이너 커스텀 미리보기" fill className="object-cover object-right-top" />
+            <Image src={previewImage} alt="디자이너 커스텀 미리보기" fill className="object-cover object-right-top" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#efe9df] via-[#efe9df]/70 to-transparent" />
             <div className="absolute left-6 top-6 max-w-[55%]">
               <p className="text-sm text-[#5f564c]">디자이너 {currentDesigner.name.replace(" 디자이너", "")}</p>

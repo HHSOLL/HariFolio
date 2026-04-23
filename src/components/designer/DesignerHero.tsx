@@ -25,7 +25,7 @@ function hexToRgba(hex: string, alpha: number) {
 }
 
 export function DesignerHero({ designer, salonHref }: DesignerHeroProps) {
-  const heroImage = designer.slug === "jiyu" ? "/images/heroes/hero-jiyu.png" : designer.profileImage;
+  const heroImage = designer.slug === "jiyu" ? "/images/heroes/hero-jiyu-v2.png" : designer.profileImage;
   const customization = useSyncExternalStore(
     (onStoreChange) => {
       if (typeof window === "undefined") return () => undefined;
@@ -60,30 +60,30 @@ export function DesignerHero({ designer, salonHref }: DesignerHeroProps) {
           ♡
         </button>
       </div>
-      <div className="grid gap-8 p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
+      <div className="grid gap-7 p-6 lg:grid-cols-[1.06fr_0.94fr] lg:p-8">
         <div>
           <span className="inline-flex rounded-full px-3 py-1 text-sm font-medium text-[#5d4a37]" style={{ backgroundColor: tintTag }}>
             TOP 디자이너
           </span>
-          <h1 className="mt-5 text-[54px] font-semibold tracking-[-0.03em] text-[#111111]">{customDisplayName}</h1>
-          <p className="mt-2 text-xl text-[#4e4840]">{customHeadline}</p>
+          <h1 className="mt-4 text-[42px] font-semibold tracking-[-0.03em] text-[#111111] lg:text-[46px]">{customDisplayName}</h1>
+          <p className="mt-2 text-[17px] text-[#4e4840] lg:text-[18px]">{customHeadline}</p>
 
           <div className="mt-4 flex flex-wrap gap-2">
             {designer.styles.map((style) => (
-              <span key={style} className="rounded-full bg-white/80 px-3 py-1 text-sm text-[#5d554c]">
+              <span key={style} className="rounded-full bg-white/80 px-3 py-1 text-[13px] text-[#5d554c]">
                 #{style}
               </span>
             ))}
           </div>
 
-          <div className="mt-5 flex items-center gap-6 text-lg text-[#3f3931]">
+          <div className="mt-5 flex items-center gap-5 text-[16px] text-[#3f3931]">
             <span>★ {designer.rating} ({designer.reviewCount})</span>
             <span>♡ {designer.likes.toLocaleString()}</span>
           </div>
 
-          <p className="mt-6 max-w-xl whitespace-pre-line text-[18px] leading-8 text-[#4e4840]">{customIntro}</p>
+          <p className="mt-5 max-w-xl whitespace-pre-line text-[16px] leading-7 text-[#4e4840]">{customIntro}</p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-wrap gap-3">
             <a href="https://booking.naver.com" target="_blank" rel="noreferrer">
               <PrimaryButton className="min-w-44">{customCtaLabel}</PrimaryButton>
             </a>
@@ -104,7 +104,7 @@ export function DesignerHero({ designer, salonHref }: DesignerHeroProps) {
           ) : null}
         </div>
 
-        <div className="relative min-h-[420px] overflow-hidden rounded-3xl bg-[#ddd4c8]">
+        <div className="relative min-h-[360px] overflow-hidden rounded-3xl bg-[#ddd4c8] lg:min-h-[420px]">
           <Image src={heroImage} alt={designer.name} fill className="object-cover object-top" sizes="(max-width: 1024px) 100vw, 40vw" />
         </div>
       </div>
