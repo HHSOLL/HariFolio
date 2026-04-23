@@ -5,8 +5,9 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { RecruitmentCard } from "@/components/recruitment/RecruitmentCard";
 import { FilterSidebar } from "@/components/search/FilterSidebar";
 import { SortTabs } from "@/components/search/SortTabs";
+import { aspiringProfileRoute, designerDetailRoute } from "@/lib/navigation";
 import { styleKeywords } from "@/lib/mock/designers";
-import { filterRecruitmentPosts, getAspiringDesigners } from "@/lib/queries";
+import { filterRecruitmentPosts, getAspiringDesigners, getDesignerBySlug } from "@/lib/queries";
 import { parseRecruitmentSearch } from "@/lib/search";
 
 interface ModelPageProps {
@@ -64,13 +65,18 @@ export default async function ModelRecruitmentPage({ searchParams }: ModelPagePr
               {posts.map((post) => {
                 const aspiring = aspiringMap.get(post.aspiringDesignerId);
                 if (!aspiring) return null;
+                const designerMatch = getDesignerBySlug(aspiring.slug);
+                const profileHref =
+                  designerMatch?.role === "designer"
+                    ? designerDetailRoute(designerMatch.slug)
+                    : aspiringProfileRoute(aspiring.slug);
 
                 return (
                   <RecruitmentCard
                     key={post.id}
                     post={post}
-                    aspiringSlug={aspiring.slug}
                     aspiringName={aspiring.name}
+                    profileHref={profileHref}
                   />
                 );
               })}

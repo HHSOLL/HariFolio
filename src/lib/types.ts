@@ -111,6 +111,15 @@ export interface UserProfile {
   viewedDesigners: string[];
 }
 
+export interface DesignerPageCustomization {
+  designerSlug: string;
+  displayName: string;
+  headline: string;
+  intro: string;
+  themeColor: string;
+  primaryCtaLabel: string;
+}
+
 export interface DesignerFilterInput {
   district?: string;
   style?: string;

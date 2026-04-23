@@ -31,25 +31,39 @@ export default async function SalonDetailPage({ params }: SalonDetailPageProps) 
           <h2 className="text-[34px] font-semibold tracking-[-0.02em] text-[#111111]">소속 디자이너</h2>
           <span className="text-sm text-[#7b7368]">총 {designers.length}명</span>
         </div>
+        <div className="mb-4 flex flex-wrap gap-2">
+          {["전체", "남성 디자이너", "여성 디자이너"].map((tab, index) => (
+            <button
+              type="button"
+              key={tab}
+              className={[
+                "rounded-full border px-4 py-1.5 text-sm transition",
+                index === 0 ? "border-[#111111] bg-[#111111] text-white" : "border-[#ddd6cb] bg-white text-[#625b51]",
+              ].join(" ")}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
           {designers.map((designer) => (
-            <article key={designer.id} className="rounded-2xl border border-[#dfd8ce] bg-white p-4">
-              <div className="flex gap-3">
-                <div className="relative h-16 w-16 overflow-hidden rounded-full">
+            <article key={designer.id} className="rounded-2xl border border-[#dfd8ce] bg-white p-3">
+              <div className="flex gap-2">
+                <div className="relative h-14 w-14 overflow-hidden rounded-full">
                   <Image src={designer.profileImage} alt={designer.name} fill className="object-cover" sizes="64px" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[24px] font-semibold tracking-[-0.02em] text-[#111111]">{designer.name}</p>
-                  <p className="text-sm text-[#6f675d]">{designer.styles.slice(0, 2).join(" · ")}</p>
-                  <p className="mt-1 text-sm text-[#5f5951]">★ {designer.rating} ({designer.reviewCount})</p>
+                  <p className="text-[22px] leading-tight font-semibold tracking-[-0.02em] text-[#111111]">{designer.name}</p>
+                  <p className="text-xs text-[#6f675d]">{designer.styles.slice(0, 2).join(" · ")}</p>
+                  <p className="mt-0.5 text-xs text-[#5f5951]">★ {designer.rating} ({designer.reviewCount})</p>
                 </div>
               </div>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-sm text-[#6f675d]">{designer.availableAt}</span>
+              <div className="mt-2 flex items-center justify-between">
+                <span className="text-xs text-[#6f675d]">{designer.availableAt}</span>
                 <Link
                   href={designerDetailRoute(designer.slug)}
-                  className="rounded-xl border border-[#d3ccc2] bg-[#f8f5f0] px-3 py-2 text-sm font-medium text-[#111111]"
+                  className="rounded-xl border border-[#d3ccc2] bg-[#f8f5f0] px-3 py-1.5 text-xs font-medium text-[#111111]"
                 >
                   프로필 보기
                 </Link>
@@ -61,7 +75,21 @@ export default async function SalonDetailPage({ params }: SalonDetailPageProps) 
 
       <section className="mt-10">
         <h2 className="mb-4 text-[34px] font-semibold tracking-[-0.02em] text-[#111111]">대표 스타일</h2>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mb-4 flex flex-wrap gap-2">
+          {["전체", ...salon.styles].map((tab, index) => (
+            <button
+              key={tab}
+              type="button"
+              className={[
+                "rounded-full border px-4 py-1.5 text-sm transition",
+                index === 0 ? "border-[#111111] bg-[#111111] text-white" : "border-[#ddd6cb] bg-white text-[#625b51]",
+              ].join(" ")}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
           {styles.map((style) => (
             <article key={style.rank} className="overflow-hidden rounded-2xl border border-[#dfd8ce] bg-white">
               <div className="relative h-52">

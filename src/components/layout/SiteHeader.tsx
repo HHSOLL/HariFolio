@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "@/lib/navigation";
+import { HairfolioLogo } from "@/components/layout/HairfolioLogo";
 
 const menuItems = [
   { label: "디자이너 찾기", href: routes.designers },
@@ -24,9 +25,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b border-[#e6e1da] bg-[#f7f5f2]/95 backdrop-blur">
       <div className="mx-auto flex h-20 w-full max-w-[1400px] items-center justify-between gap-8 px-6 lg:px-10">
-        <Link href="/" className="text-[48px] leading-none tracking-[-0.04em] text-[#111111]" aria-label="Hairfolio 홈">
-          Hairfolio
-        </Link>
+        <HairfolioLogo priority />
 
         <nav className="hidden items-center gap-8 lg:flex">
           {menuItems.map((item) => (

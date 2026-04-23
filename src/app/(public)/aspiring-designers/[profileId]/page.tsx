@@ -98,7 +98,6 @@ export default async function AspiringProfilePage({ params }: AspiringProfilePag
             <RecruitmentCard
               key={post.id}
               post={post}
-              aspiringSlug={aspiring.slug}
               aspiringName={aspiring.name}
             />
           ))}
@@ -113,6 +112,7 @@ export default async function AspiringProfilePage({ params }: AspiringProfilePag
               key={link.href}
               href={link.href}
               target="_blank"
+              rel="noopener noreferrer"
               className="rounded-xl border border-[#d7d0c6] px-4 py-2 text-sm text-[#3f3932]"
             >
               {link.label}
