@@ -49,9 +49,34 @@ function safeParseAuthSession(input: string | null): AuthSession | null {
   }
 }
 
+function safeGetItem(key: string) {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function safeSetItem(key: string, value: string) {
+  try {
+    window.localStorage.setItem(key, value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function safeRemoveItem(key: string) {
+  try {
+    window.localStorage.removeItem(key);
+  } catch {
+    // Ignore storage restrictions and fall back to memory-less behavior.
+  }
+}
+
 export function getBookmarkedDesignerIds() {
   if (typeof window === "undefined") return [];
-  return safeParse(window.localStorage.getItem(BOOKMARK_KEY));
+  return safeParse(safeGetItem(BOOKMARK_KEY));
 }
 
 export function toggleBookmarkedDesignerId(designerId: string) {
@@ -61,52 +86,52 @@ export function toggleBookmarkedDesignerId(designerId: string) {
   const next = exists
     ? current.filter((item) => item !== designerId)
     : unique([designerId, ...current]);
-  window.localStorage.setItem(BOOKMARK_KEY, JSON.stringify(next));
+  safeSetItem(BOOKMARK_KEY, JSON.stringify(next));
   return next;
 }
 
 export function getViewedDesignerIds() {
   if (typeof window === "undefined") return [];
-  return safeParse(window.localStorage.getItem(VIEWED_KEY));
+  return safeParse(safeGetItem(VIEWED_KEY));
 }
 
 export function addViewedDesignerId(designerId: string) {
   if (typeof window === "undefined") return [];
   const current = getViewedDesignerIds();
   const next = unique([designerId, ...current]).slice(0, 20);
-  window.localStorage.setItem(VIEWED_KEY, JSON.stringify(next));
+  safeSetItem(VIEWED_KEY, JSON.stringify(next));
   return next;
 }
 
 export function getDesignerCustomization(designerSlug: string): DesignerPageCustomization | null {
   if (typeof window === "undefined") return null;
-  const map = safeParseObject(window.localStorage.getItem(DESIGNER_CUSTOM_KEY));
+  const map = safeParseObject(safeGetItem(DESIGNER_CUSTOM_KEY));
   return map[designerSlug] ?? null;
 }
 
 export function setDesignerCustomization(customization: DesignerPageCustomization) {
   if (typeof window === "undefined") return null;
-  const map = safeParseObject(window.localStorage.getItem(DESIGNER_CUSTOM_KEY));
+  const map = safeParseObject(safeGetItem(DESIGNER_CUSTOM_KEY));
   map[customization.designerSlug] = customization;
-  window.localStorage.setItem(DESIGNER_CUSTOM_KEY, JSON.stringify(map));
+  safeSetItem(DESIGNER_CUSTOM_KEY, JSON.stringify(map));
   window.dispatchEvent(new CustomEvent(DESIGNER_CUSTOM_EVENT, { detail: customization.designerSlug }));
   return customization;
 }
 
 export function getAuthSession() {
   if (typeof window === "undefined") return null;
-  return safeParseAuthSession(window.localStorage.getItem(AUTH_SESSION_KEY));
+  return safeParseAuthSession(safeGetItem(AUTH_SESSION_KEY));
 }
 
 export function setAuthSession(session: AuthSession) {
   if (typeof window === "undefined") return null;
-  window.localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(session));
+  safeSetItem(AUTH_SESSION_KEY, JSON.stringify(session));
   window.dispatchEvent(new CustomEvent(AUTH_SESSION_EVENT, { detail: session.role }));
   return session;
 }
 
 export function clearAuthSession() {
   if (typeof window === "undefined") return;
-  window.localStorage.removeItem(AUTH_SESSION_KEY);
+  safeRemoveItem(AUTH_SESSION_KEY);
   window.dispatchEvent(new CustomEvent(AUTH_SESSION_EVENT, { detail: null }));
 }
