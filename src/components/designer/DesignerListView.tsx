@@ -34,10 +34,10 @@ export function DesignerListView({
   query,
 }: DesignerListViewProps) {
   return (
-    <PageContainer className="py-8">
+    <PageContainer className="py-7">
       <Breadcrumbs items={[{ label: "디자이너 찾기" }]} />
 
-      <div className="grid gap-6 xl:grid-cols-[360px_1fr]">
+      <div className="grid gap-6 xl:grid-cols-[320px_1fr]">
         <FilterSidebar
           title="필터"
           action={basePath}
@@ -52,8 +52,8 @@ export function DesignerListView({
         />
 
         <section>
-          <h1 className="text-[56px] font-semibold tracking-[-0.03em] text-[#111111]">{title}</h1>
-          <p className="mt-1 text-[18px] text-[#686157]">{subtitle}</p>
+          <h1 className="text-[42px] font-semibold tracking-[-0.03em] text-[#111111] lg:text-[46px]">{title}</h1>
+          <p className="mt-1 text-[16px] text-[#686157]">{subtitle}</p>
 
           <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
             <SortTabs basePath={basePath} currentSort={query.sort} query={query} options={sortOptions} />
@@ -62,16 +62,16 @@ export function DesignerListView({
                 <span className="rounded-lg bg-[#f3eee7] px-2 py-1 text-xs text-[#4f483f]">▦</span>
                 <span className="rounded-lg px-2 py-1 text-xs text-[#a0978c]">☰</span>
               </div>
-              <select className="rounded-xl border border-[#ddd6cc] bg-white px-3 py-2 text-sm text-[#4f483f]" defaultValue="20">
+              <select className="rounded-xl border border-[#ddd6cc] bg-white px-3 py-2 text-[13px] text-[#4f483f]" defaultValue="20">
                 <option value="20">20개씩 보기</option>
                 <option value="40">40개씩 보기</option>
               </select>
-              <div className="text-sm text-[#7b7368]">{totalCount.toLocaleString()}명의 디자이너</div>
+              <div className="text-[13px] text-[#7b7368]">{totalCount.toLocaleString()}명의 디자이너</div>
             </div>
           </div>
 
           {designers.length ? (
-            <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+            <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
               {designers.map((designer) => (
                 <DesignerCard key={designer.id} designer={designer} />
               ))}

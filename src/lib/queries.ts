@@ -72,8 +72,8 @@ export function filterDesigners(filters: DesignerFilterInput) {
 
 export function getTrendingStyles() {
   const styleImages = [
-    "/images/generated/gen-style-female-01.png",
-    "/images/generated/gen-style-male-01.png",
+    "/images/generated/gen-style-female-01-v2.png",
+    "/images/generated/gen-style-male-01-v2.png",
     "/images/portfolio/style-03.png",
     "/images/portfolio/style-04.png",
     "/images/portfolio/style-05.png",
